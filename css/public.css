@@ -1,0 +1,64 @@
+/* ============================================================
+   Inu ID — Página pública del collar (la que abre el NFC)
+   ============================================================ */
+.brand{display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:14px}
+
+/* estados */
+.state{min-height:60dvh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;color:var(--muted)}
+.state .em{font-size:52px}
+.state p{margin-top:10px;font-size:15px}
+.spinner{width:34px;height:34px;border-radius:50%;border:3px solid var(--sky-soft);border-top-color:var(--navy);animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* visibilidad por modo */
+.lost-only{display:none}
+body.is-lost .lost-only{display:block}
+body.is-lost .status.lost-only{display:flex}
+.normal-only{display:block}
+body.is-lost .normal-only{display:none}
+
+/* franja de estado */
+.status{align-items:center;gap:10px;background:linear-gradient(135deg,var(--navy),var(--navy-deep));
+  color:#fff;border-radius:16px;padding:12px 16px;font-weight:600;font-size:14.5px;box-shadow:var(--shadow)}
+.ping{position:relative;width:11px;height:11px;flex:0 0 11px}
+.ping i{position:absolute;inset:0;border-radius:50%;background:var(--sky)}
+.ping::after{content:"";position:absolute;inset:0;border-radius:50%;background:var(--sky);animation:ping 1.8s cubic-bezier(0,0,.2,1) infinite}
+@keyframes ping{0%{transform:scale(1);opacity:.7}70%,100%{transform:scale(2.6);opacity:0}}
+
+/* hero */
+.hero{margin-top:14px;padding:30px 24px 24px;text-align:center;position:relative;overflow:hidden}
+.hero .arc{position:absolute;top:-60px;left:50%;transform:translateX(-50%);width:320px;height:200px;
+  background:radial-gradient(closest-side,var(--sky-soft),transparent 70%)}
+.avatar{position:relative;width:128px;height:128px;margin:0 auto 6px;border-radius:50%;background:var(--sky-soft);
+  display:flex;align-items:center;justify-content:center;border:5px solid #fff;box-shadow:0 10px 26px -12px rgba(0,67,112,.5)}
+.avatar .emoji{font-size:74px;line-height:1;font-family:"Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif}
+.greet{position:relative;font-size:13px;color:var(--muted);font-weight:500;margin-top:4px}
+.name{position:relative;font-family:'Nunito';font-weight:900;font-size:42px;color:var(--navy);line-height:1.05;letter-spacing:-.5px}
+.tags{position:relative;display:flex;gap:7px;justify-content:center;flex-wrap:wrap;margin-top:14px}
+.tag{font-size:12px;font-weight:600;color:var(--navy);background:var(--sky-soft);padding:5px 12px;border-radius:999px}
+.speech{position:relative;margin-top:18px;font-size:15px;color:var(--ink);background:var(--bg);border-radius:16px;padding:14px 16px;text-align:left}
+
+/* filas de info */
+.block{margin-top:14px;padding:8px 6px}
+.label{font-size:12px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:var(--sky);padding:0 18px;margin-bottom:6px}
+.row{display:flex;gap:14px;align-items:flex-start;padding:13px 18px;border-bottom:1px solid var(--line)}
+.row:last-child{border-bottom:none}
+.ic{flex:0 0 38px;width:38px;height:38px;border-radius:11px;background:var(--bg);display:flex;align-items:center;justify-content:center;color:var(--navy)}
+.ic svg{width:19px;height:19px}
+.row .k{font-size:12px;color:var(--muted);font-weight:500}
+.row .v{font-size:15.5px;color:var(--ink);font-weight:600}
+
+/* acciones */
+.actions{margin-top:18px;display:flex;flex-direction:column;gap:11px}
+.abtn{display:flex;align-items:center;justify-content:center;gap:10px;text-decoration:none;font-family:'Nunito';
+  font-weight:800;font-size:16.5px;padding:16px;border-radius:16px;transition:transform .12s ease,filter .12s ease}
+.abtn:active{transform:scale(.98)}
+.abtn svg{width:20px;height:20px}
+.abtn-primary{background:var(--navy);color:#fff;box-shadow:var(--shadow)}
+.abtn-primary:hover{filter:brightness(1.08)}
+.abtn-ghost{background:#fff;color:var(--navy);border:1.5px solid var(--sky)}
+.abtn-ghost:hover{background:var(--sky-soft)}
+
+.footnote{text-align:center;font-size:12.5px;color:var(--muted);margin-top:22px;padding:0 12px}
+.footnote b{color:var(--navy);font-weight:700}
+.credit{text-align:center;font-size:11px;color:#9fb0b8;margin-top:16px}

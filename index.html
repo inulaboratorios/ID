@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inu ID · Panel del dueño</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+<div class="shell">
+
+  <!-- Brand SVG reutilizable: se clona por JS donde haga falta -->
+  <template id="brand-tpl">
+    <svg viewBox="0 0 24 24" fill="none"><path d="M12 4l5 4v6c0 3-2.4 4-5 4s-5-1-5-4V8l5-4z" stroke="#004370" stroke-width="1.7" stroke-linejoin="round"/><circle cx="12" cy="13" r="2" fill="#90BECB"/></svg>
+  </template>
+
+  <!-- ================= LOGIN ================= -->
+  <section id="view-login" class="auth hidden">
+    <div class="brand"><span data-brandicon></span><b>Inu<span> ID</span></b></div>
+    <div class="card auth-card">
+      <h1>Panel del dueño</h1>
+      <p class="sub">Ingresa para administrar el collar de tu mascota</p>
+      <div class="field">
+        <label for="login-user">Usuario</label>
+        <input id="login-user" type="text" autocomplete="username" placeholder="Tu usuario o correo">
+      </div>
+      <div class="field">
+        <label for="login-pass">Contraseña</label>
+        <input id="login-pass" type="password" autocomplete="current-password" placeholder="Tu contraseña">
+      </div>
+      <div class="err" id="login-err"></div>
+      <button class="btn btn-primary" id="login-btn">Ingresar</button>
+      <p class="swap">¿No tienes cuenta? <a id="go-register">Créala aquí</a></p>
+      <p class="demo-note" data-demo-only>Modo demo · cualquier usuario y contraseña entra</p>
+    </div>
+  </section>
+
+  <!-- ================= REGISTRO ================= -->
+  <section id="view-register" class="auth hidden">
+    <div class="brand"><span data-brandicon></span><b>Inu<span> ID</span></b></div>
+    <div class="card auth-card">
+      <h1>Crear cuenta</h1>
+      <p class="sub">Una sola cuenta Inu para todos tus servicios</p>
+      <div class="field">
+        <label for="reg-user">Usuario</label>
+        <input id="reg-user" type="text" autocomplete="username" placeholder="Elige un usuario o correo">
+      </div>
+      <div class="field">
+        <label for="reg-pass">Contraseña</label>
+        <input id="reg-pass" type="password" autocomplete="new-password" placeholder="Mínimo 6 caracteres">
+      </div>
+      <div class="field">
+        <label for="reg-pass2">Repite la contraseña</label>
+        <input id="reg-pass2" type="password" autocomplete="new-password" placeholder="Repite tu contraseña">
+      </div>
+      <div class="err" id="reg-err"></div>
+      <button class="btn btn-primary" id="reg-btn">Continuar</button>
+      <p class="swap">¿Ya tienes cuenta? <a id="go-login">Inicia sesión</a></p>
+    </div>
+  </section>
+
+  <!-- ================= ONBOARDING ================= -->
+  <section id="view-onboarding" class="auth hidden">
+    <div class="brand"><span data-brandicon></span><b>Inu<span> ID</span></b></div>
+    <div class="card auth-card">
+      <h1>Tus datos</h1>
+      <p class="sub">Un último paso para empezar</p>
+      <div class="two">
+        <div class="field"><label for="ob-name">Nombre</label><input id="ob-name" type="text" placeholder="Nombre"></div>
+        <div class="field"><label for="ob-last">Apellido</label><input id="ob-last" type="text" placeholder="Apellido"></div>
+      </div>
+      <div class="field">
+        <label for="ob-phone">Teléfono</label>
+        <input id="ob-phone" type="tel" placeholder="Tu teléfono de contacto">
+      </div>
+      <div class="field">
+        <label for="ob-email">Correo <span style="color:var(--muted);font-weight:400">(opcional)</span></label>
+        <input id="ob-email" type="email" placeholder="tucorreo@ejemplo.com">
+      </div>
+      <div class="err" id="ob-err"></div>
+      <button class="btn btn-primary" id="ob-btn">Entrar al panel</button>
+    </div>
+  </section>
+
+  <!-- ================= DASHBOARD (mascotas) ================= -->
+  <section id="view-dashboard" class="hidden">
+    <div class="topbar">
+      <div class="brand"><span data-brandicon></span><b>Inu<span> ID</span></b></div>
+      <div class="actions">
+        <button class="iconbtn" id="help-btn" title="Ayuda">
+          <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M9.5 9.5a2.5 2.5 0 113.2 2.4c-.8.3-1.2.8-1.2 1.6M12 17h.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </button>
+        <button class="logout" id="logout-btn">Salir</button>
+      </div>
+    </div>
+
+    <div class="hello" id="hello">Hola 👋</div>
+    <div class="hello-sub">Administra los collares de tus mascotas.</div>
+
+    <button class="btn btn-primary addbtn" id="add-pet-btn">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
+      Agregar mascota
+    </button>
+
+    <div id="pets-list"></div>
+  </section>
+
+  <!-- ================= EDITAR / CREAR MASCOTA ================= -->
+  <section id="view-edit" class="hidden">
+    <div class="viewhead">
+      <button class="back" data-back><svg viewBox="0 0 24 24" width="18" height="18" fill="none"><path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+      <h2 id="edit-title">Editar mascota</h2>
+    </div>
+
+    <div class="segment">
+      <button class="seg-btn active" data-tab="datos">Datos</button>
+      <button class="seg-btn" data-tab="preview">Vista previa</button>
+    </div>
+
+    <!-- TAB DATOS -->
+    <div id="tab-datos">
+      <div class="card form">
+        <div class="sec">La mascota</div>
+        <div class="two">
+          <div><label>Nombre <span class="req">*</span></label><input id="f_name"></div>
+          <div><label>Especie</label>
+            <select id="f_species"><option value="dog">Perro</option><option value="cat">Gato</option></select>
+          </div>
+        </div>
+        <div class="two">
+          <div><label>Raza</label><input id="f_breed"></div>
+          <div><label>Edad</label><input id="f_age" placeholder="Ej: 3 años"></div>
+        </div>
+        <label>Sexo</label><input id="f_sex" placeholder="Macho / Hembra">
+
+        <div class="sec">Contacto público</div>
+        <label>Nombre de contacto <span class="req">*</span></label><input id="f_owner" placeholder="Quién ve el que la encuentre">
+        <label>Dirección <span class="req">*</span></label><input id="f_addr">
+        <label>Teléfono <span class="req">*</span></label><input id="f_phone">
+        <label>WhatsApp</label><input id="f_wa">
+
+        <div class="sec">Datos importantes</div>
+        <div class="chk">
+          <label><input type="checkbox" id="f_vac"> Vacunado</label>
+          <label><input type="checkbox" id="f_chip"> Microchip</label>
+        </div>
+        <label>Cuidados / temperamento</label>
+        <textarea id="f_care" placeholder="Ej: alérgico a algunos alimentos"></textarea>
+
+        <div class="sec">Mensaje en el collar</div>
+        <label>Cuando está en casa (modo normal)</label>
+        <textarea id="f_msg_normal"></textarea>
+        <label>Cuando está perdido (modo perdido)</label>
+        <textarea id="f_msg_lost"></textarea>
+
+        <div class="err" id="edit-err"></div>
+        <button class="btn btn-primary" id="save-btn" style="margin-top:6px">Guardar</button>
+      </div>
+    </div>
+
+    <!-- TAB VISTA PREVIA -->
+    <div id="tab-preview" class="hidden">
+      <p class="pv-hint">Así se ve la información en el collar. Cambia entre los dos modos:</p>
+      <div class="modeseg">
+        <button class="mode-btn active" data-mode="normal">Modo normal</button>
+        <button class="mode-btn" data-mode="perdido">Modo perdido</button>
+      </div>
+      <div class="phone">
+        <div class="phone-notch"></div>
+        <div class="phone-screen" id="pv">
+          <div class="pv-brand"><span data-brandicon></span><b>Inu<span> ID</span></b></div>
+          <div class="pv-banner pv-lost-only"><span class="pv-ping"></span> Estoy perdido — ayúdame a volver a casa</div>
+          <div class="pv-hero">
+            <div class="pv-ava"><span id="pv-emoji">🐶</span></div>
+            <div class="pv-greet">Hola, me llamo</div>
+            <div class="pv-name" id="pv-name">Max</div>
+            <div class="pv-tags" id="pv-tags"></div>
+            <div class="pv-speech pv-normal-only" id="pv-msg-normal"></div>
+            <div class="pv-speech pv-lost-only" id="pv-msg-lost"></div>
+          </div>
+          <div class="pv-card">
+            <div class="pv-lab">Mi familia</div>
+            <div class="pv-row"><b>Dueño</b><span id="pv-owner"></span></div>
+            <div class="pv-row"><b>Vive en</b><span id="pv-addr"></span></div>
+          </div>
+          <div class="pv-card">
+            <div class="pv-lab">Datos importantes</div>
+            <div class="pv-row"><b>Salud</b><span id="pv-health"></span></div>
+            <div class="pv-row"><b>Cuidado</b><span id="pv-care"></span></div>
+          </div>
+          <div class="pv-actions">
+            <div class="pv-btn pv-btn-primary">Llamar a la familia</div>
+            <div class="pv-btn pv-btn-ghost">Escribir por WhatsApp</div>
+            <div class="pv-btn pv-btn-ghost">Ver dónde vivo</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= AYUDA ================= -->
+  <section id="view-help" class="hidden">
+    <div class="viewhead">
+      <button class="back" data-back><svg viewBox="0 0 24 24" width="18" height="18" fill="none"><path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+      <h2>Ayuda</h2>
+    </div>
+    <div class="card help-sec">
+      <div class="qa"><div class="q">¿Cómo funciona el collar?</div><div class="a">Lleva un sensor NFC. Quien encuentre a tu mascota solo acerca su teléfono y se abre la página con los datos para contactarte. No necesita instalar nada.</div></div>
+      <div class="qa"><div class="q">¿Qué hace el modo perdido?</div><div class="a">Apagado, el collar muestra solo tus datos de contacto. Activado, agrega el aviso de "mascota perdida" y el mensaje de búsqueda que escribiste.</div></div>
+      <div class="qa"><div class="q">¿Quién puede ver mis datos?</div><div class="a">Solo quien tenga el collar en la mano y acerque su teléfono. Tú decides qué se muestra desde "Editar".</div></div>
+      <div class="qa"><div class="q">¿Necesito internet en el collar?</div><div class="a">No. El sensor no usa batería ni conexión: abre la página en el teléfono de quien lo lee.</div></div>
+    </div>
+    <div class="card support">
+      <p>¿Necesitas más ayuda?</p>
+      <a class="btn btn-ghost" href="https://wa.me/51987654321?text=Hola%2C%20necesito%20ayuda%20con%20Inu%20ID" target="_blank" rel="noopener">Escribir a soporte</a>
+    </div>
+  </section>
+
+</div>
+<div id="toast"></div>
+
+<script src="js/config.js"></script>
+<script src="js/store.js"></script>
+<script src="js/api.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

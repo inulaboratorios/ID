@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inu ID · Mascota</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/public.css">
+</head>
+<body>
+<div class="shell">
+
+  <div class="brand">
+    <svg viewBox="0 0 24 24" fill="none"><path d="M12 4l5 4v6c0 3-2.4 4-5 4s-5-1-5-4V8l5-4z" stroke="#004370" stroke-width="1.7" stroke-linejoin="round"/><circle cx="12" cy="13" r="2" fill="#90BECB"/></svg>
+    <b style="font-family:'Nunito';font-weight:800;font-size:18px;color:#004370">Inu<span style="color:#90BECB"> ID</span></b>
+  </div>
+
+  <!-- CARGANDO -->
+  <div id="loading" class="state"><div class="spinner"></div><p>Cargando…</p></div>
+
+  <!-- NO ENCONTRADO -->
+  <div id="notfound" class="state hidden"><div class="em">🐾</div><p>Este collar todavía no tiene una mascota asignada,<br>o el enlace no es válido.</p></div>
+
+  <!-- CONTENIDO -->
+  <div id="content" class="hidden">
+    <div class="status lost-only">
+      <span class="ping"><i></i></span>
+      Estoy perdido — ayúdame a volver a casa
+    </div>
+
+    <div class="card hero">
+      <div class="arc"></div>
+      <div class="avatar"><span class="emoji" id="c-emoji">🐶</span></div>
+      <div class="greet">Hola, me llamo</div>
+      <h1 class="name" id="c-name"></h1>
+      <div class="tags" id="c-tags"></div>
+      <div class="speech normal-only" id="c-msg-normal"></div>
+      <div class="speech lost-only" id="c-msg-lost"></div>
+    </div>
+
+    <div class="card block">
+      <div class="label">Mi familia</div>
+      <div class="row">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="1.8"/><path d="M4 20c0-4 4-6 8-6s8 2 8 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></div>
+        <div><div class="k">Contacto</div><div class="v" id="c-owner"></div></div>
+      </div>
+      <div class="row">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none"><path d="M12 21s-7-5.5-7-11a7 7 0 0114 0c0 5.5-7 11-7 11z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><circle cx="12" cy="10" r="2.4" stroke="currentColor" stroke-width="1.8"/></svg></div>
+        <div><div class="k">Vive en</div><div class="v" id="c-addr"></div></div>
+      </div>
+    </div>
+
+    <div class="card block" id="c-important">
+      <div class="label">Datos importantes</div>
+      <div class="row" id="c-health-row">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none"><path d="M9 3h6v3l4 1v6c0 5-3.5 8-7 8s-7-3-7-8V7l4-1V3z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></div>
+        <div><div class="k">Salud</div><div class="v" id="c-health"></div></div>
+      </div>
+      <div class="row" id="c-care-row">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none"><path d="M12 9v4m0 4h.01M10.3 4.3l-7 12A2 2 0 005 19.4h14a2 2 0 001.7-3l-7-12a2 2 0 00-3.4 0z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></div>
+        <div><div class="k">Cuidado</div><div class="v" id="c-care"></div></div>
+      </div>
+    </div>
+
+    <div class="actions">
+      <a class="abtn abtn-primary" id="c-call">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M5 4h3l1.5 4-2 1.5a11 11 0 005 5l1.5-2 4 1.5V18a2 2 0 01-2 2A15 15 0 014 6a2 2 0 011-2z" fill="currentColor"/></svg>
+        Llamar a la familia
+      </a>
+      <a class="abtn abtn-ghost" id="c-wa" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 3a9 9 0 00-7.7 13.6L3 21l4.5-1.2A9 9 0 1012 3z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 9c0 4 2 6 6 6 .8 0 1.3-1.2.7-1.7l-1.5-1.1-1.3 1c-1-.5-1.8-1.3-2.3-2.3l1-1.3-1.1-1.5C9.6 7.2 9 7.6 9 9z" fill="currentColor"/></svg>
+        Escribir por WhatsApp
+      </a>
+      <a class="abtn abtn-ghost" id="c-map" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 21s-7-5.5-7-11a7 7 0 0114 0c0 5.5-7 11-7 11z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><circle cx="12" cy="10" r="2.4" stroke="currentColor" stroke-width="1.8"/></svg>
+        Ver dónde vivo
+      </a>
+    </div>
+
+    <p class="footnote lost-only">Gracias por ayudarme 💙 <b>Mi familia te lo agradecerá muchísimo.</b></p>
+    <p class="credit">Identificación protegida por Inu ID</p>
+  </div>
+
+</div>
+
+<script src="js/config.js"></script>
+<script src="js/store.js"></script>
+<script src="js/api.js"></script>
+<script src="js/public.js"></script>
+</body>
+</html>

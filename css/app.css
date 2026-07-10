@@ -1,0 +1,151 @@
+/* ============================================================
+   Inu ID — Estilos del panel del dueño
+   ============================================================ */
+
+/* ---------- AUTH (login / registro / onboarding) ---------- */
+.auth{display:flex;flex-direction:column;align-items:center;min-height:80dvh;justify-content:center}
+.auth .brand{margin-bottom:24px;transform:scale(1.15)}
+.auth-card{width:100%;padding:30px 26px}
+.auth-card h1{font-family:'Nunito';font-weight:900;font-size:24px;color:var(--navy);text-align:center}
+.auth-card p.sub{text-align:center;color:var(--muted);font-size:14px;margin-top:4px;margin-bottom:22px}
+.field{margin-bottom:14px}
+.field label{display:block;font-size:13px;font-weight:600;color:var(--navy);margin-bottom:6px}
+.field input{width:100%;font-family:'Inter';font-size:16px;color:var(--ink);
+  padding:13px 14px;border:1.5px solid var(--line);border-radius:13px;background:#fff;outline:none;transition:border .15s}
+.field input:focus{border-color:var(--sky)}
+.err{color:var(--alert);font-size:13px;font-weight:600;text-align:center;min-height:18px;margin:4px 0 8px}
+.swap{text-align:center;font-size:13.5px;color:var(--muted);margin-top:16px}
+.swap a{color:var(--navy);font-weight:700;text-decoration:none;cursor:pointer}
+.swap a:hover{text-decoration:underline}
+.demo-note{text-align:center;font-size:12px;color:var(--muted);margin-top:14px}
+.demo-note code{background:var(--sky-soft);color:var(--navy);padding:2px 7px;border-radius:6px;font-weight:600}
+
+/* ---------- TOPBAR ---------- */
+.topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+.topbar .actions{display:flex;align-items:center;gap:6px}
+.iconbtn{width:38px;height:38px;border-radius:11px;border:1px solid var(--line);background:#fff;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;color:var(--navy);transition:background .12s}
+.iconbtn:hover{background:var(--sky-soft)}
+.iconbtn svg{width:19px;height:19px}
+.logout{font-family:'Nunito';font-weight:700;font-size:13px;color:var(--muted);background:none;border:none;cursor:pointer;padding:8px}
+.logout:hover{color:var(--navy)}
+
+/* ---------- DASHBOARD ---------- */
+.hello{font-family:'Nunito';font-weight:900;font-size:26px;color:var(--navy);margin-bottom:2px}
+.hello-sub{color:var(--muted);font-size:14px;margin-bottom:18px}
+.addbtn{margin-bottom:16px}
+
+.empty{text-align:center;padding:40px 20px;color:var(--muted)}
+.empty .em{font-size:44px}
+.empty p{margin-top:8px;font-size:14px}
+
+.petcard{padding:16px;margin-bottom:12px}
+.petcard .head{display:flex;align-items:center;gap:14px}
+.petcard .ava{width:52px;height:52px;flex:0 0 52px;border-radius:50%;background:var(--sky-soft);
+  display:flex;align-items:center;justify-content:center;font-size:30px}
+.petcard .nm{font-family:'Nunito';font-weight:800;font-size:18px;color:var(--ink)}
+.petcard .meta{font-size:13px;color:var(--muted)}
+.pill{margin-left:auto;font-size:12px;font-weight:700;padding:6px 12px;border-radius:999px;
+  background:var(--sky-soft);color:var(--navy);white-space:nowrap}
+.pill.lost{background:var(--alert-soft);color:var(--alert)}
+.petcard .foot{display:flex;align-items:center;gap:10px;margin-top:14px;padding-top:14px;border-top:1px solid var(--line)}
+.lostmini{display:flex;align-items:center;gap:9px;font-size:13px;font-weight:600;color:var(--ink);margin-right:auto}
+.linkbtn{font-family:'Nunito';font-weight:700;font-size:13px;color:var(--navy);background:#fff;border:1.5px solid var(--sky);
+  padding:8px 13px;border-radius:10px;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:6px}
+.linkbtn:hover{background:var(--sky-soft)}
+.linkbtn svg{width:14px;height:14px}
+
+/* switch */
+.switch{position:relative;width:48px;height:28px;flex:0 0 48px}
+.switch input{position:absolute;opacity:0;width:100%;height:100%;margin:0;cursor:pointer;z-index:2}
+.slider{position:absolute;inset:0;background:#cdd9de;border-radius:999px;transition:.22s}
+.slider::before{content:"";position:absolute;width:22px;height:22px;left:3px;top:3px;background:#fff;border-radius:50%;
+  transition:.22s;box-shadow:0 2px 5px rgba(0,0,0,.25)}
+.switch input:checked + .slider{background:var(--alert)}
+.switch input:checked + .slider::before{transform:translateX(20px)}
+
+/* ---------- SUB-VISTAS (editar / ayuda) ---------- */
+.viewhead{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.back{width:38px;height:38px;flex:0 0 38px;border-radius:11px;border:1px solid var(--line);
+  background:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--navy)}
+.back:hover{background:var(--sky-soft)}
+.viewhead h2{font-family:'Nunito';font-weight:900;font-size:21px;color:var(--navy)}
+
+/* pestañas Datos / Vista previa */
+.segment{display:flex;gap:4px;background:#e6eef2;border-radius:13px;padding:4px;margin-bottom:16px}
+.seg-btn{flex:1;border:none;cursor:pointer;background:transparent;font-family:'Nunito';font-weight:800;
+  font-size:14.5px;color:var(--muted);padding:10px;border-radius:10px;transition:.15s}
+.seg-btn.active{background:#fff;color:var(--navy);box-shadow:0 2px 8px -3px rgba(0,67,112,.35)}
+
+/* formulario */
+.form{padding:20px}
+.form .sec{font-size:12px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--sky);margin:18px 0 10px}
+.form .sec:first-child{margin-top:0}
+.form label{display:block;font-size:13px;font-weight:600;color:var(--navy);margin:0 0 6px}
+.form input,.form select,.form textarea{width:100%;font-family:'Inter';font-size:15px;color:var(--ink);
+  padding:12px 13px;border:1.5px solid var(--line);border-radius:12px;background:#fff;outline:none;margin-bottom:12px}
+.form input:focus,.form select:focus,.form textarea:focus{border-color:var(--sky)}
+.form textarea{resize:vertical;min-height:70px}
+.req{color:var(--alert)}
+.two{display:flex;gap:10px}.two>div{flex:1}
+.chk{display:flex;gap:18px;margin-bottom:8px}
+.chk label{display:flex;align-items:center;gap:7px;font-size:14px;color:var(--ink);font-weight:500}
+.chk input{width:auto;margin:0}
+
+/* vista previa */
+.pv-hint{font-size:13px;color:var(--muted);text-align:center;margin-bottom:11px}
+.modeseg{display:flex;gap:7px;justify-content:center;margin-bottom:16px}
+.mode-btn{border:1.5px solid var(--line);background:#fff;cursor:pointer;font-family:'Nunito';
+  font-weight:700;font-size:13px;color:var(--muted);padding:8px 16px;border-radius:999px;transition:.15s}
+.mode-btn.active{border-color:var(--navy);color:#fff;background:var(--navy)}
+.mode-btn[data-mode="perdido"].active{border-color:var(--alert);background:var(--alert)}
+
+.phone{width:286px;max-width:100%;margin:0 auto;background:#1d2b33;border-radius:36px;padding:10px;
+  box-shadow:0 24px 54px -22px rgba(0,67,112,.6)}
+.phone-notch{width:86px;height:6px;background:#3a4750;border-radius:99px;margin:2px auto 8px}
+.phone-screen{background:var(--bg);border-radius:28px;padding:16px 13px 18px;max-height:520px;overflow:auto}
+.phone-screen::-webkit-scrollbar{width:0}
+
+/* mini collar dentro de la preview */
+.pv-brand{display:flex;align-items:center;justify-content:center;gap:6px;margin-bottom:10px}
+.pv-brand svg{width:16px;height:16px}
+.pv-brand b{font-family:'Nunito';font-weight:800;font-size:13px;color:var(--navy)}
+.pv-brand span{color:var(--sky)}
+.pv-banner{align-items:center;gap:7px;justify-content:center;
+  background:linear-gradient(135deg,var(--navy),var(--navy-deep));color:#fff;border-radius:11px;
+  padding:8px 11px;font-size:11.5px;font-weight:600;margin-bottom:10px}
+.pv-ping{width:8px;height:8px;border-radius:50%;background:var(--sky);flex:0 0 8px}
+.pv-hero{background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px 14px;text-align:center}
+.pv-ava{width:72px;height:72px;border-radius:50%;background:var(--sky-soft);display:flex;align-items:center;
+  justify-content:center;margin:0 auto 4px;border:3px solid #fff;box-shadow:0 6px 16px -8px rgba(0,67,112,.5)}
+.pv-ava span{font-size:42px;line-height:1}
+.pv-greet{font-size:11px;color:var(--muted)}
+.pv-name{font-family:'Nunito';font-weight:900;font-size:26px;color:var(--navy);line-height:1.1}
+.pv-tags{display:flex;gap:5px;flex-wrap:wrap;justify-content:center;margin-top:8px}
+.pv-tag{font-size:10px;font-weight:600;color:var(--navy);background:var(--sky-soft);padding:3px 9px;border-radius:999px}
+.pv-speech{font-size:12px;color:var(--ink);background:var(--bg);border-radius:11px;padding:9px 11px;text-align:left;margin-top:12px}
+.pv-card{background:#fff;border:1px solid var(--line);border-radius:14px;margin-top:10px;padding:4px 0}
+.pv-lab{font-size:10px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--sky);padding:9px 14px 2px}
+.pv-row{display:flex;flex-direction:column;padding:7px 14px;border-bottom:1px solid var(--line)}
+.pv-row:last-child{border-bottom:none}
+.pv-row b{font-size:10px;color:var(--muted);font-weight:500}
+.pv-row span{font-size:13px;color:var(--ink);font-weight:600}
+.pv-actions{display:flex;flex-direction:column;gap:8px;margin-top:12px}
+.pv-btn{text-align:center;font-family:'Nunito';font-weight:800;font-size:13px;padding:11px;border-radius:12px}
+.pv-btn-primary{background:var(--navy);color:#fff}
+.pv-btn-ghost{background:#fff;color:var(--navy);border:1.5px solid var(--sky)}
+
+.pv-lost-only{display:none}
+#pv.pv-lost .pv-lost-only{display:block}
+#pv.pv-lost .pv-banner.pv-lost-only{display:flex}
+.pv-normal-only{display:block}
+#pv.pv-lost .pv-normal-only{display:none}
+
+/* ayuda */
+.help-sec{padding:6px 4px}
+.qa{padding:16px 18px;border-bottom:1px solid var(--line)}
+.qa:last-child{border-bottom:none}
+.qa .q{font-family:'Nunito';font-weight:800;font-size:15px;color:var(--navy);margin-bottom:5px}
+.qa .a{font-size:14px;color:var(--muted)}
+.support{margin-top:14px;padding:18px;text-align:center}
+.support p{font-size:14px;color:var(--muted);margin-bottom:12px}
