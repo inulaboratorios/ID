@@ -2,10 +2,19 @@
    Inu ID — Base: tokens de marca + componentes compartidos
    ============================================================ */
 :root{
-  --navy:#004370;--navy-deep:#003356;--sky:#90BECB;--sky-soft:#D6E8EE;
-  --bg:#F1F7F9;--card:#FFFFFF;--ink:#1d2b33;--muted:#6b7c85;--line:#E3EDF1;
+  /* Paleta Inu ID — CYAN como color principal.
+     Los nombres --navy/--sky se conservan por compatibilidad con el resto
+     del CSS, pero ahora contienen tonos cyan. El azul de marca (--blue)
+     se usa de forma mínima (solo la marca de agua de huellas del fondo). */
+  --navy:#0E7490;        /* cyan oscuro — principal: botones, títulos, nombre */
+  --navy-deep:#0A4E5E;   /* cyan más oscuro — fondos oscuros / sombras de degradado */
+  --cyan-bright:#12A9C9; /* cyan claro — degradados y acentos vivos */
+  --sky:#2FAEC9;         /* cyan medio — bordes, etiquetas, detalles */
+  --sky-soft:#DCF4F9;    /* cyan muy claro — fondos suaves, chips, avatar */
+  --blue:#004370;        /* azul de marca — uso mínimo */
+  --bg:#F0F8FA;--card:#FFFFFF;--ink:#173039;--muted:#5e727a;--line:#E1EEF1;
   --alert:#D64545;--alert-soft:#FBEAEA;
-  --radius:22px;--shadow:0 14px 40px -22px rgba(0,67,112,.45);
+  --radius:22px;--shadow:0 14px 40px -22px rgba(14,116,144,.42);
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{-webkit-text-size-adjust:100%}

@@ -75,7 +75,7 @@
 .segment{display:flex;gap:4px;background:#e6eef2;border-radius:13px;padding:4px;margin-bottom:16px}
 .seg-btn{flex:1;border:none;cursor:pointer;background:transparent;font-family:'Nunito';font-weight:800;
   font-size:14.5px;color:var(--muted);padding:10px;border-radius:10px;transition:.15s}
-.seg-btn.active{background:#fff;color:var(--navy);box-shadow:0 2px 8px -3px rgba(0,67,112,.35)}
+.seg-btn.active{background:#fff;color:var(--navy);box-shadow:0 2px 8px -3px rgba(14,116,144,.35)}
 
 /* formulario */
 .form{padding:20px}
@@ -101,7 +101,7 @@
 .mode-btn[data-mode="perdido"].active{border-color:var(--alert);background:var(--alert)}
 
 .phone{width:286px;max-width:100%;margin:0 auto;background:#1d2b33;border-radius:36px;padding:10px;
-  box-shadow:0 24px 54px -22px rgba(0,67,112,.6)}
+  box-shadow:0 24px 54px -22px rgba(14,116,144,.6)}
 .phone-notch{width:86px;height:6px;background:#3a4750;border-radius:99px;margin:2px auto 8px}
 .phone-screen{background:var(--bg);border-radius:28px;padding:16px 13px 18px;max-height:520px;overflow:auto}
 .phone-screen::-webkit-scrollbar{width:0}
@@ -112,12 +112,12 @@
 .pv-brand b{font-family:'Nunito';font-weight:800;font-size:13px;color:var(--navy)}
 .pv-brand span{color:var(--sky)}
 .pv-banner{align-items:center;gap:7px;justify-content:center;
-  background:linear-gradient(135deg,var(--navy),var(--navy-deep));color:#fff;border-radius:11px;
+  background:linear-gradient(135deg,var(--cyan-bright),var(--navy));color:#fff;border-radius:11px;
   padding:8px 11px;font-size:11.5px;font-weight:600;margin-bottom:10px}
 .pv-ping{width:8px;height:8px;border-radius:50%;background:var(--sky);flex:0 0 8px}
 .pv-hero{background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px 14px;text-align:center}
 .pv-ava{width:72px;height:72px;border-radius:50%;background:var(--sky-soft);display:flex;align-items:center;
-  justify-content:center;margin:0 auto 4px;border:3px solid #fff;box-shadow:0 6px 16px -8px rgba(0,67,112,.5)}
+  justify-content:center;margin:0 auto 4px;border:3px solid #fff;box-shadow:0 6px 16px -8px rgba(14,116,144,.5)}
 .pv-ava span{font-size:42px;line-height:1}
 .pv-greet{font-size:11px;color:var(--muted)}
 .pv-name{font-family:'Nunito';font-weight:900;font-size:26px;color:var(--navy);line-height:1.1}
