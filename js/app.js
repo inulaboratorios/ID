@@ -104,25 +104,54 @@
       list.innerHTML = '<div class="empty"><div class="em">🐶</div><p>Aún no tienes mascotas.<br>Agrega la primera con el botón de arriba.</p></div>';
       return;
     }
+    // iconos
+    const iWarn = '<svg viewBox="0 0 24 24" fill="none"><path d="M12 9v4m0 4h.01M10.3 4.3l-7 12A2 2 0 005 19.4h14a2 2 0 001.7-3l-7-12a2 2 0 00-3.4 0z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>';
+    const iClock = '<svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M12 7v5l3 2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>';
+    const iTag = '<svg viewBox="0 0 24 24" fill="none"><path d="M4 4h7l9 9-7 7-9-9V4z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><circle cx="8.5" cy="8.5" r="1.4" fill="currentColor"/></svg>';
+    const iEye = '<svg viewBox="0 0 24 24" fill="none"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.8"/></svg>';
+
     list.innerHTML = "";
     pets.forEach((pet) => {
       const emoji = pet.species === "cat" ? "🐱" : "🐶";
       const meta = [pet.breed, pet.age].filter(Boolean).join(" · ") || (pet.species === "cat" ? "Gato" : "Perro");
+      const editBtn = '<button class="linkbtn" data-edit="' + pet.id + '">Editar</button>';
+
+      let pillClass, pillText, foot;
+      if (pet.hasCollar) {
+        pillClass = pet.isLost ? "lost" : "";
+        pillText = pet.isLost ? "Perdido" : "En casa";
+        const ver = pet.collarCode
+          ? '<a class="linkbtn" href="m.html?code=' + encodeURIComponent(pet.collarCode) + '" target="_blank" rel="noopener">' + iEye + 'Ver</a>'
+          : "";
+        foot =
+          '<div class="foot">' +
+            '<label class="lostmini">Modo perdido<span class="switch"><input type="checkbox" ' + (pet.isLost ? "checked" : "") + ' data-lost="' + pet.id + '"><span class="slider"></span></span></label>' +
+            ver + editBtn +
+          '</div>';
+      } else if (pet.collarRequested) {
+        pillClass = "pending"; pillText = "Solicitado";
+        foot =
+          '<div class="foot col">' +
+            '<div class="notice info">' + iClock + 'Collar solicitado — te lo enviaremos a casa pronto.</div>' +
+            '<div class="cactions"><span class="spacer"></span>' + editBtn + '</div>' +
+          '</div>';
+      } else {
+        pillClass = "muted"; pillText = "Sin collar";
+        foot =
+          '<div class="foot col">' +
+            '<div class="notice warn">' + iWarn + 'Este perfil aún no está conectado a un collar.</div>' +
+            '<div class="cactions"><button class="btn-req" data-request="' + pet.id + '">' + iTag + 'Solicitar collar</button><span class="spacer"></span>' + editBtn + '</div>' +
+          '</div>';
+      }
+
       const card = document.createElement("div");
       card.className = "card petcard";
       card.innerHTML =
         '<div class="head">' +
           '<div class="ava">' + emoji + '</div>' +
           '<div><div class="nm">' + esc(pet.name) + '</div><div class="meta">' + esc(meta) + '</div></div>' +
-          '<div class="pill' + (pet.isLost ? ' lost' : '') + '">' + (pet.isLost ? 'Perdido' : 'En casa') + '</div>' +
-        '</div>' +
-        '<div class="foot">' +
-          '<label class="lostmini">Modo perdido' +
-            '<span class="switch"><input type="checkbox" ' + (pet.isLost ? 'checked' : '') + ' data-lost="' + pet.id + '"><span class="slider"></span></span>' +
-          '</label>' +
-          (pet.hasCollar && pet.collarCode ? '<a class="linkbtn" href="m.html?code=' + encodeURIComponent(pet.collarCode) + '" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.8"/></svg>Ver</a>' : '') +
-          '<button class="linkbtn" data-edit="' + pet.id + '">Editar</button>' +
-        '</div>';
+          '<div class="pill ' + pillClass + '">' + pillText + '</div>' +
+        '</div>' + foot;
       list.appendChild(card);
     });
 
@@ -141,6 +170,15 @@
     // botones editar
     list.querySelectorAll("[data-edit]").forEach((el) => {
       el.addEventListener("click", () => openEdit(pets.find((p) => p.id === el.getAttribute("data-edit"))));
+    });
+    // botones solicitar collar
+    list.querySelectorAll("[data-request]").forEach((el) => {
+      el.addEventListener("click", async () => {
+        const id = el.getAttribute("data-request");
+        el.disabled = true; el.textContent = "Enviando…";
+        try { await Api.requestCollar(id); toast("Solicitud enviada 🎉 Te lo enviaremos a casa."); await loadDashboard(); }
+        catch (_) { el.disabled = false; el.textContent = "Solicitar collar"; toast("No se pudo enviar. Intenta de nuevo."); }
+      });
     });
   }
 

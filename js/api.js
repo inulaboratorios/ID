@@ -54,6 +54,16 @@
       msgNormal: "¡Hola! Soy amigable 🐾 Estos son mis datos, por si algún día me llego a perder.",
       msgLost: "Soy amigable y me asusto con los carros. Si me encontraste, por favor avisa a mi familia — ellos me están buscando. 🐾",
       isLost: false, hasCollar: true, collarCode: "demo1234"
+    },
+    {
+      id: "demo-luna", name: "Luna", species: "cat", breed: "Siamesa", sex: "Hembra", age: "2 años",
+      ownerDisplayName: "María Fernández", address: "Av. Los Álamos 245, Surco, Lima",
+      phone: "+51 987 654 321", whatsapp: "+51 987 654 321",
+      vaccinated: true, microchip: false,
+      careNotes: "Es tímida, no la persigas",
+      msgNormal: "¡Hola! Soy Luna 🐾 Estos son mis datos.",
+      msgLost: "Me perdí y soy miedosa. Por favor avisa a mi familia con calma. 🐾",
+      isLost: false, hasCollar: false, collarRequested: false, collarCode: null
     }
   ];
   const wait = (v) => new Promise((r) => setTimeout(() => r(v), 250));
@@ -88,7 +98,7 @@
     },
 
     async createPet(data) {
-      if (CFG.DEMO) { const p = { id: uid(), isLost: false, hasCollar: false, collarCode: null, ...data }; demoPets.push(p); return wait({ id: p.id, name: p.name, species: p.species }); }
+      if (CFG.DEMO) { const p = { id: uid(), isLost: false, hasCollar: false, collarRequested: false, collarCode: null, ...data }; demoPets.push(p); return wait({ id: p.id, name: p.name, species: p.species }); }
       return req("POST", "/InuidPets", data, true);
     },
 
@@ -100,6 +110,13 @@
     async setLost(id, isLost) {
       if (CFG.DEMO) { const p = demoPets.find((x) => x.id === id); if (p) p.isLost = isLost; return wait({ id, isLost }); }
       return req("PATCH", "/InuidPets/" + id + "/lost", { isLost }, true);
+    },
+
+    // Solicitar un collar para una mascota (el dueño hace el pedido).
+    // ⚠️ Endpoint PROPUESTO: aún no existe en el backend de Jose; ver nota para él.
+    async requestCollar(id) {
+      if (CFG.DEMO) { const p = demoPets.find((x) => x.id === id); if (p) p.collarRequested = true; return wait({ ok: true }); }
+      return req("POST", "/InuidPets/" + id + "/request-collar", {}, true);
     },
 
     async publicPet(code) {

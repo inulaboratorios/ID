@@ -14,6 +14,7 @@
   --blue:#004370;        /* azul de marca — uso mínimo */
   --bg:#F0F8FA;--card:#FFFFFF;--ink:#173039;--muted:#5e727a;--line:#E1EEF1;
   --alert:#D64545;--alert-soft:#FBEAEA;
+  --warn:#9A6B12;--warn-soft:#FBF1DD;   /* ámbar — avisos que requieren acción (sin collar) */
   --radius:22px;--shadow:0 14px 40px -22px rgba(14,116,144,.42);
 }
 *{box-sizing:border-box;margin:0;padding:0}
