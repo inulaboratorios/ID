@@ -115,32 +115,34 @@
       const emoji = pet.species === "cat" ? "🐱" : "🐶";
       const meta = [pet.breed, pet.age].filter(Boolean).join(" · ") || (pet.species === "cat" ? "Gato" : "Perro");
       const editBtn = '<button class="linkbtn" data-edit="' + pet.id + '">Editar</button>';
+      // Botón de vista previa: abre el perfil público real en pestaña nueva.
+      // La URL nace con la mascota (publicCode), tenga collar o no.
+      const previewBtn = pet.publicCode
+        ? '<a class="linkbtn" href="/m/' + encodeURIComponent(pet.publicCode) + '" target="_blank" rel="noopener">' + iEye + 'Vista previa</a>'
+        : '';
 
       let pillClass, pillText, foot;
       if (pet.hasCollar) {
         pillClass = pet.isLost ? "lost" : "";
         pillText = pet.isLost ? "Perdido" : "En casa";
-        const ver = pet.collarCode
-          ? '<a class="linkbtn" href="m.html?code=' + encodeURIComponent(pet.collarCode) + '" target="_blank" rel="noopener">' + iEye + 'Ver</a>'
-          : "";
         foot =
           '<div class="foot">' +
             '<label class="lostmini">Modo perdido<span class="switch"><input type="checkbox" ' + (pet.isLost ? "checked" : "") + ' data-lost="' + pet.id + '"><span class="slider"></span></span></label>' +
-            ver + editBtn +
+            '<span class="spacer"></span>' + previewBtn + editBtn +
           '</div>';
       } else if (pet.collarRequested) {
         pillClass = "pending"; pillText = "Solicitado";
         foot =
           '<div class="foot col">' +
             '<div class="notice info">' + iClock + 'Collar solicitado — te lo enviaremos a casa pronto.</div>' +
-            '<div class="cactions"><span class="spacer"></span>' + editBtn + '</div>' +
+            '<div class="cactions"><span class="spacer"></span>' + previewBtn + editBtn + '</div>' +
           '</div>';
       } else {
         pillClass = "muted"; pillText = "Sin collar";
         foot =
           '<div class="foot col">' +
             '<div class="notice warn">' + iWarn + 'Este perfil aún no está conectado a un collar.</div>' +
-            '<div class="cactions"><button class="btn-req" data-request="' + pet.id + '">' + iTag + 'Solicitar collar</button><span class="spacer"></span>' + editBtn + '</div>' +
+            '<div class="cactions"><button class="btn-req" data-request="' + pet.id + '">' + iTag + 'Solicitar collar</button><span class="spacer"></span>' + previewBtn + editBtn + '</div>' +
           '</div>';
       }
 

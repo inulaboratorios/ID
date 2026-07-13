@@ -50,10 +50,11 @@
 .pill.lost{background:var(--alert-soft);color:var(--alert)}
 .pill.muted{background:#EDF1F3;color:var(--muted)}
 .pill.pending{background:var(--warn-soft);color:var(--warn)}
-.petcard .foot{display:flex;align-items:center;gap:10px;margin-top:14px;padding-top:14px;border-top:1px solid var(--line)}
+
+.petcard .foot{display:flex;align-items:center;gap:10px;margin-top:14px;padding-top:14px;border-top:1px solid var(--line);flex-wrap:wrap;row-gap:10px}
 .petcard .foot.col{flex-direction:column;align-items:stretch;gap:12px}
-.cactions{display:flex;align-items:center;gap:10px}
-.cactions .spacer{margin-left:auto}
+.cactions{display:flex;align-items:center;gap:10px;flex-wrap:wrap;row-gap:8px}
+.spacer{margin-left:auto}
 .notice{display:flex;align-items:flex-start;gap:9px;border-radius:12px;padding:11px 13px;font-size:13px;font-weight:600;line-height:1.4}
 .notice svg{width:17px;height:17px;flex:0 0 17px;margin-top:1px}
 .notice.warn{background:var(--warn-soft);color:var(--warn)}
@@ -63,7 +64,8 @@
 .btn-req:hover{filter:brightness(1.08)}
 .btn-req:disabled{opacity:.6;cursor:default}
 .btn-req svg{width:15px;height:15px}
-.lostmini{display:flex;align-items:center;gap:9px;font-size:13px;font-weight:600;color:var(--ink);margin-right:auto}
+
+.lostmini{display:flex;align-items:center;gap:9px;font-size:13px;font-weight:600;color:var(--ink)}
 .linkbtn{font-family:'Nunito';font-weight:700;font-size:13px;color:var(--navy);background:#fff;border:1.5px solid var(--sky);
   padding:8px 13px;border-radius:10px;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:6px}
 .linkbtn:hover{background:var(--sky-soft)}
