@@ -8,6 +8,6 @@
                    Ponlo en false cuando lo subas a Vercel.
    ============================================================ */
 window.INUID_CONFIG = {
-  DEMO: true,
+  DEMO: false,
   API_BASE: "https://api.inulaboratorios.com/api"
 };
