@@ -118,7 +118,7 @@
       // Botón de vista previa: abre el perfil público real en pestaña nueva.
       // La URL nace con la mascota (publicCode), tenga collar o no.
       const previewBtn = pet.publicCode
-        ? '<a class="linkbtn" href="/m/' + encodeURIComponent(pet.publicCode) + '" target="_blank" rel="noopener">' + iEye + 'Vista previa</a>'
+        ? '<a class="linkbtn" href="/m/' + encodeURIComponent(pet.publicCode) + '" target="_blank" rel="noopener">' + iEye + 'Ver</a>'
         : '';
 
       let pillClass, pillText, foot;
