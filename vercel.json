@@ -1,5 +1,6 @@
 {
   "rewrites": [
+    { "source": "/lab", "destination": "/lab.html" },
     { "source": "/m/:code", "destination": "/m.html" }
   ]
 }
