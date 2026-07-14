@@ -57,4 +57,4 @@ body::before{content:none}
 
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 
-.brand img{height:20px;width:auto;display:block}
+.brand img{height:20px;width:auto;display:block;position:relative;top:-2px}
