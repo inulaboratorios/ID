@@ -165,3 +165,5 @@
 .qa .a{font-size:14px;color:var(--muted)}
 .support{margin-top:14px;padding:18px;text-align:center}
 .support p{font-size:14px;color:var(--muted);margin-bottom:12px}
+
+.pv-brand img{height:18px;width:auto;display:block}
