@@ -26,6 +26,8 @@
   /* estado */
   let profile = null;      // { name, lastName, ... }
   let editingId = null;    // id de mascota en edición, o null = crear
+  let pendingPhotoFile = null; // foto elegida al crear (se sube tras crear la mascota)
+  let editPhotoUrl = null;     // URL de la foto mostrada en editar/preview (o null)
 
   /* ============ AUTH ============ */
   async function doLogin() {
@@ -113,6 +115,7 @@
     list.innerHTML = "";
     pets.forEach((pet) => {
       const emoji = pet.species === "cat" ? "🐱" : "🐶";
+      const avaInner = pet.photoUrl ? '<img src="' + esc(pet.photoUrl) + '" alt="">' : emoji;
       const meta = [pet.breed, pet.age].filter(Boolean).join(" · ") || (pet.species === "cat" ? "Gato" : "Perro");
       const editBtn = '<button class="linkbtn" data-edit="' + pet.id + '">Editar</button>';
       // Botón de vista previa: abre el perfil público real en pestaña nueva.
@@ -150,7 +153,7 @@
       card.className = "card petcard";
       card.innerHTML =
         '<div class="head">' +
-          '<div class="ava">' + emoji + '</div>' +
+          '<div class="ava">' + avaInner + '</div>' +
           '<div><div class="nm">' + esc(pet.name) + '</div><div class="meta">' + esc(meta) + '</div></div>' +
           '<div class="pill ' + pillClass + '">' + pillText + '</div>' +
         '</div>' + foot;
@@ -206,9 +209,41 @@
     v("f_care", pet && pet.careNotes);
     v("f_msg_normal", pet ? pet.msgNormal : DEFAULT_MSG_NORMAL);
     v("f_msg_lost", pet ? pet.msgLost : DEFAULT_MSG_LOST);
+    editPhotoUrl = (pet && pet.photoUrl) || null;
+    pendingPhotoFile = null;
+    $("f_photo_btn").textContent = editPhotoUrl ? "Cambiar foto" : "Subir foto";
+    renderEditAvatar();
     $("edit-err").textContent = "";
     setTab("datos"); setMode("normal");
     show("edit");
+  }
+
+  function renderEditAvatar() {
+    const ava = $("f_photo_ava");
+    if (editPhotoUrl) ava.innerHTML = '<img src="' + editPhotoUrl + '" alt="">';
+    else ava.innerHTML = '<span id="f_photo_emoji">' + ($("f_species").value === "cat" ? "🐱" : "🐶") + '</span>';
+  }
+
+  async function handlePhotoSelect(e) {
+    const file = e.target.files && e.target.files[0];
+    e.target.value = ""; // permite re-elegir el mismo archivo
+    if (!file) return;
+    if (!/^image\/(jpeg|png|webp)$/.test(file.type)) { toast("Usa una imagen JPG, PNG o WEBP."); return; }
+    if (file.size > 8 * 1024 * 1024) { toast("La imagen es muy grande (máx 8 MB)."); return; }
+    editPhotoUrl = URL.createObjectURL(file); // vista inmediata
+    renderEditAvatar(); renderPreview();
+    if (editingId) {
+      const btn = $("f_photo_btn"); btn.disabled = true; btn.textContent = "Subiendo…";
+      try {
+        const r = await Api.uploadPhoto(editingId, file);
+        if (r && r.photoUrl) { editPhotoUrl = r.photoUrl; renderEditAvatar(); renderPreview(); }
+        toast("Foto actualizada");
+      } catch (_) { toast("No se pudo subir la foto."); }
+      finally { btn.disabled = false; btn.textContent = "Cambiar foto"; }
+    } else {
+      pendingPhotoFile = file; // se subirá al crear la mascota
+      $("f_photo_btn").textContent = "Cambiar foto";
+    }
   }
 
   function collectForm() {
@@ -238,9 +273,18 @@
     }
     const btn = $("save-btn"); btn.disabled = true; btn.textContent = "Guardando…";
     try {
-      if (editingId) await Api.updatePet(editingId, data);
-      else await Api.createPet(data);
-      toast("Mascota guardada");
+      let photoWarn = false;
+      if (editingId) {
+        await Api.updatePet(editingId, data);
+      } else {
+        const created = await Api.createPet(data);
+        if (pendingPhotoFile && created && created.id) {
+          try { await Api.uploadPhoto(created.id, pendingPhotoFile); }
+          catch (_) { photoWarn = true; }
+        }
+      }
+      pendingPhotoFile = null;
+      toast(photoWarn ? "Mascota creada. La foto no subió; edítala para reintentar." : "Mascota guardada");
       await loadDashboard(); show("dashboard");
     } catch (e) {
       $("edit-err").textContent = "No se pudo guardar. Intenta de nuevo.";
@@ -261,7 +305,9 @@
   function renderPreview() {
     const g = (id) => $(id).value.trim();
     $("pv-name").textContent = g("f_name") || "Tu mascota";
-    $("pv-emoji").textContent = $("f_species").value === "cat" ? "🐱" : "🐶";
+    const pvimg = $("pv-photo"), pvemoji = $("pv-emoji");
+    if (editPhotoUrl) { pvimg.src = editPhotoUrl; pvimg.hidden = false; pvemoji.style.display = "none"; }
+    else { pvimg.hidden = true; pvemoji.style.display = ""; pvemoji.textContent = $("f_species").value === "cat" ? "🐱" : "🐶"; }
     const especie = $("f_species").selectedOptions[0].text;
     const t1 = [especie, g("f_breed")].filter(Boolean).join(" · ");
     const tags = [t1, g("f_sex"), g("f_age")].filter(Boolean);
@@ -289,6 +335,9 @@
     $("help-btn").addEventListener("click", () => show("help"));
     $("add-pet-btn").addEventListener("click", () => openEdit(null));
     $("save-btn").addEventListener("click", saveEdit);
+    $("f_photo_btn").addEventListener("click", () => $("f_photo_input").click());
+    $("f_photo_input").addEventListener("change", handlePhotoSelect);
+    $("f_species").addEventListener("change", renderEditAvatar);
     document.querySelectorAll("[data-back]").forEach((b) => b.addEventListener("click", () => show("dashboard")));
     document.querySelectorAll(".seg-btn").forEach((b) => b.addEventListener("click", () => setTab(b.dataset.tab)));
     document.querySelectorAll(".mode-btn").forEach((b) => b.addEventListener("click", () => setMode(b.dataset.mode)));

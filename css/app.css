@@ -167,3 +167,14 @@
 .support p{font-size:14px;color:var(--muted);margin-bottom:12px}
 
 .pv-brand img{height:18px;width:auto;display:block}
+
+/* ---- Foto de perfil ---- */
+.photo-ctrl{display:flex;flex-direction:column;align-items:center;gap:10px;margin-bottom:4px}
+.photo-ava{width:96px;height:96px;border-radius:50%;background:var(--sky-soft);display:flex;align-items:center;justify-content:center;overflow:hidden;font-size:52px}
+.photo-ava img{width:100%;height:100%;object-fit:cover;display:block}
+.photo-btn{font-family:'Nunito';font-weight:700;font-size:13px;color:var(--navy);background:#fff;border:1.5px solid var(--sky);padding:9px 15px;border-radius:10px;cursor:pointer;transition:background .12s}
+.photo-btn:hover{background:var(--sky-soft)}
+.photo-btn:disabled{opacity:.6;cursor:default}
+.petcard .ava{overflow:hidden}
+.petcard .ava img{width:100%;height:100%;object-fit:cover;border-radius:50%;display:block}
+.pv-ava img{width:100%;height:100%;object-fit:cover;border-radius:50%;display:block}

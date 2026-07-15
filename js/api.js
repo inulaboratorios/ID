@@ -119,6 +119,23 @@
       return req("POST", "/InuidPets/" + id + "/request-collar", {}, true);
     },
 
+    // Subir/cambiar la foto de perfil de una mascota (multipart/form-data).
+    async uploadPhoto(id, file) {
+      if (CFG.DEMO) {
+        const url = URL.createObjectURL(file);
+        const p = demoPets.find((x) => x.id === id); if (p) p.photoUrl = url;
+        return wait({ message: "Foto actualizada", photoUrl: url });
+      }
+      const fd = new FormData();
+      fd.append("file", file);
+      const headers = {};
+      const t = Store.get(TOKEN_KEY);
+      if (t) headers["Authorization"] = "Bearer " + t;
+      const res = await fetch(CFG.API_BASE + "/InuidPets/" + id + "/photo", { method: "POST", headers, body: fd });
+      if (!res.ok) { const e = new Error("HTTP " + res.status); e.status = res.status; throw e; }
+      return res.json().catch(() => ({}));
+    },
+
     async publicPet(code) {
       if (CFG.DEMO) {
         const p = demoPets.find((x) => x.collarCode === code) || demoPets[0];

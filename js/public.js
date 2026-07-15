@@ -20,6 +20,11 @@
   function fill(pet) {
     // emoji por especie
     $("c-emoji").textContent = pet.species === "cat" ? "🐱" : "🐶";
+    // foto de perfil si existe
+    if (pet.photoUrl) {
+      const im = $("c-photo"); im.src = pet.photoUrl; im.hidden = false;
+      $("c-emoji").style.display = "none";
+    }
     $("c-name").textContent = pet.name || "";
     const especie = pet.species === "cat" ? "Gato" : "Perro";
     const t1 = [especie, pet.breed].filter(Boolean).join(" · ");

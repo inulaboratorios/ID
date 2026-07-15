@@ -123,6 +123,11 @@
     <!-- TAB DATOS -->
     <div id="tab-datos">
       <div class="card form">
+        <div class="photo-ctrl">
+          <div class="photo-ava" id="f_photo_ava"><span id="f_photo_emoji">🐶</span></div>
+          <input type="file" id="f_photo_input" accept="image/jpeg,image/png,image/webp" hidden>
+          <button type="button" class="photo-btn" id="f_photo_btn">Subir foto</button>
+        </div>
         <div class="sec">La mascota</div>
         <div class="two">
           <div><label>Nombre <span class="req">*</span></label><input id="f_name"></div>
@@ -174,7 +179,7 @@
           <div class="pv-brand"><span data-brandicon></span><b>Inu<span> ID</span></b></div>
           <div class="pv-banner pv-lost-only"><span class="pv-ping"></span> Estoy perdido — ayúdame a volver a casa</div>
           <div class="pv-hero">
-            <div class="pv-ava"><span id="pv-emoji">🐶</span></div>
+            <div class="pv-ava"><img id="pv-photo" alt="" hidden><span id="pv-emoji">🐶</span></div>
             <div class="pv-greet">Hola, me llamo</div>
             <div class="pv-name" id="pv-name">Max</div>
             <div class="pv-tags" id="pv-tags"></div>
